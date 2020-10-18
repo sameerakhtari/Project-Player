@@ -37,7 +37,25 @@ public void retrive(String path)
     File[] listOfFiles = folder.listFiles();
    
     
-
+  
+    
+    for(int i = 0; i < listOfFiles.length; i++) 
+    {
+        if (listOfFiles[i].isFile()) 
+        {
+            String name=listOfFiles[i].getName();
+                if(name.contains(".mp3"))
+                {
+                    
+    		addList(listOfFiles[i].getName());
+                
+                }
+        }
+    }
+    
+    
+    
+      
     
  
    playSet(); 
