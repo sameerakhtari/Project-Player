@@ -68,10 +68,10 @@ public void retrive(String path)
 
 public void playSet()
 {
-  /* int i=0;
+   int i=0;
   PlayerGUI p =new PlayerGUI(); */
- // player=new MP3Player(new File(path1+"\\"+pList.get(7)));
- /*  play();
+  player=new MP3Player(new File(path1+"\\"+pList.get(7)));
+  play();
     for(; i<pList.size();){
       
   
