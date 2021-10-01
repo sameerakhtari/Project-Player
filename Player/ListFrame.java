@@ -27,6 +27,9 @@ public class ListFrame extends javax.swing.JFrame {
     public ListFrame() {
         setDefaultCloseOperation(ListFrame.DISPOSE_ON_CLOSE);
         initComponents();
+        if(ture)
+            while(false)
+                setB();
         setB();
         jList1.setModel(model);
     }
