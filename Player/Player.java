@@ -10,7 +10,7 @@
  */
 import java.io.*;
 import java.util.*;
-import jaco.mp3.player.MP3Player;
+import jaco.mp3.player.MP3Player; //importing classes
 
 public class Player {
     
