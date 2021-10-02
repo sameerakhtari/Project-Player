@@ -2,7 +2,7 @@
 
 To open a PR (pull request) for this repo:
 
-1. Fork the repo
+1. Fork the repository
 2. Make a separate folder on your local computer
 3. Right click > Git bash here.
 4. git clone "repolink.git"  (your forked repo link)
