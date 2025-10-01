@@ -18,8 +18,4 @@ To open a PR (pull request) for this repo:
 Note: Have patience till your PR gets reviewed and accepted/merged.
 
 
-***ISSUES NEEDED TO BE RESOLVED***
-1. Make Comments
-2. Add Images
-3. Modify Code
-4. Add New Functions
+Made my first change on the Readme file for Hacktoberfest
