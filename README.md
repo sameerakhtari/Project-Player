@@ -17,3 +17,4 @@ To open a PR (pull request) for this repo:
 
 Note: Have patience till your PR gets reviewed and accepted/merged.
 
+Made my first change on the Readme file for Hacktoberfest
