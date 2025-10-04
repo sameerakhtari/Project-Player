@@ -11,8 +11,8 @@
  
  
  // Main Class
+import java.*;
 public class PlayerMian {
-
     /**
      * @param args the command line arguments
      */
@@ -25,3 +25,4 @@ public class PlayerMian {
     }
     
 }
+
