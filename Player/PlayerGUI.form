@@ -2,7 +2,7 @@
 
 <Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
-    <Component class="javax.swing.JColorChooser" name="jColorChooser1">
+    <Component class="javax.swing.JColorChooser" name="jColorChooser11">
     </Component>
     <Container class="javax.swing.JDesktopPane" name="jDesktopPane1">
 
