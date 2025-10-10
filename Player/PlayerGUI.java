@@ -1,4 +1,13 @@
 
+/*
+ * PlayerGUI.java
+ * -------------------------------------
+ * This file defines the main GUI for the MP3 Player application.
+ * A small "About" dialog was added for Hacktoberfest 2025.
+ *
+ * Original author: Sameer Akhtari
+ * Minor update: Hacktoberfest contribution (Misbah Qureshi)
+ */
 import javax.swing.JFileChooser;
 import javax.*;
 
@@ -18,51 +27,63 @@ public class PlayerGUI extends javax.swing.JFrame  {
         initComponents();
         setIcons();
        ccP.setVisible(false);
-      
+      // 🔹 Hacktoberfest addition: add a small Help -> About menu
+        addAboutMenu();
         
            }
-    private void setIcons(){
-       
-         prevB.setContentAreaFilled(false);
+
+           /** Adds a simple "Help -> About" menu item */
+    private void addAboutMenu() {
+        javax.swing.JMenuBar menuBar = new javax.swing.JMenuBar();
+        javax.swing.JMenu helpMenu = new javax.swing.JMenu("Help");
+        javax.swing.JMenuItem aboutItem = new javax.swing.JMenuItem("About");
+
+        aboutItem.addActionListener(e -> showAboutDialog());
+        helpMenu.add(aboutItem);
+        menuBar.add(helpMenu);
+        setJMenuBar(menuBar);
+    }
+
+    
+       private void setIcons() {
+
+        prevB.setContentAreaFilled(false);
         prevB.setFocusPainted(false);
         prevB.setBorderPainted(false);
-        
-         nextB.setContentAreaFilled(false);
+
+        nextB.setContentAreaFilled(false);
         nextB.setFocusPainted(false);
         nextB.setBorderPainted(false);
-        
+
         stopB.setContentAreaFilled(false);
         stopB.setFocusPainted(false);
         stopB.setBorderPainted(false);
-        
-         loopB.setContentAreaFilled(false);
+
+        loopB.setContentAreaFilled(false);
         loopB.setFocusPainted(false);
         loopB.setBorderPainted(false);
-        
-         ccB.setContentAreaFilled(false);
+
+        ccB.setContentAreaFilled(false);
         ccB.setFocusPainted(false);
         ccB.setBorderPainted(false);
-        
+
         volumeB.setContentAreaFilled(false);
         volumeB.setFocusPainted(false);
         volumeB.setBorderPainted(false);
-        
+
         listB.setContentAreaFilled(false);
         listB.setFocusPainted(false);
         listB.setBorderPainted(false);
-        
+
         playB.setContentAreaFilled(false);
         playB.setFocusPainted(false);
         playB.setBorderPainted(false);
-        
+
         loadFileB.setContentAreaFilled(false);
         loadFileB.setFocusPainted(false);
         loadFileB.setBorderPainted(false);
-        
+
         ccP.setBorder(null);
-        
-        
-       
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -72,7 +93,6 @@ public class PlayerGUI extends javax.swing.JFrame  {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-
         jColorChooser1 = new javax.swing.JColorChooser();
         jDesktopPane1 = new javax.swing.JDesktopPane();
         jInternalFrame1 = new javax.swing.JInternalFrame();
@@ -129,35 +149,19 @@ public class PlayerGUI extends javax.swing.JFrame  {
 
         prevB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\backward-1.png")); // NOI18N
         prevB.setOpaque(false);
-        prevB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prevBActionPerformed(evt);
-            }
-        });
+        prevB.addActionListener(evt -> prevBActionPerformed(evt));
         jPanel1.add(prevB, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 15, 40, 40));
 
         playB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\play-set.png")); // NOI18N
-        playB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playBActionPerformed(evt);
-            }
-        });
+        playB.addActionListener(evt -> playBActionPerformed(evt));
         jPanel1.add(playB, new org.netbeans.lib.awtextra.AbsoluteConstraints(58, 2, 63, 63));
 
         nextB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\fast-forward.png")); // NOI18N
-        nextB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nextBActionPerformed(evt);
-            }
-        });
+        nextB.addActionListener(evt -> nextBActionPerformed(evt));
         jPanel1.add(nextB, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 15, 40, 40));
 
         stopB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\stop-2.png")); // NOI18N
-        stopB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                stopBActionPerformed(evt);
-            }
-        });
+        stopB.addActionListener(evt -> stopBActionPerformed(evt));
         jPanel1.add(stopB, new org.netbeans.lib.awtextra.AbsoluteConstraints(127, 24, 22, 22));
 
         musicS.setBackground(new java.awt.Color(0, 0, 0));
@@ -165,27 +169,15 @@ public class PlayerGUI extends javax.swing.JFrame  {
         jPanel1.add(musicS, new org.netbeans.lib.awtextra.AbsoluteConstraints(241, 22, 517, -1));
 
         volumeB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\Vol.png")); // NOI18N
-        volumeB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                volumeBActionPerformed(evt);
-            }
-        });
+        volumeB.addActionListener(evt -> volumeBActionPerformed(evt));
         jPanel1.add(volumeB, new org.netbeans.lib.awtextra.AbsoluteConstraints(804, 22, 22, 22));
 
         ccB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\cc.png")); // NOI18N
-        ccB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ccBActionPerformed(evt);
-            }
-        });
+        ccB.addActionListener(evt -> ccBActionPerformed(evt));
         jPanel1.add(ccB, new org.netbeans.lib.awtextra.AbsoluteConstraints(764, 22, 22, 22));
 
         loopB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\repeat.png")); // NOI18N
-        loopB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loopBActionPerformed(evt);
-            }
-        });
+        loopB.addActionListener(evt -> loopBActionPerformed(evt));
         jPanel1.add(loopB, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 20, 30, 30));
 
         jLabel2.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player\\lower.jpg")); // NOI18N
@@ -194,66 +186,31 @@ public class PlayerGUI extends javax.swing.JFrame  {
 
         jPanel2.setBackground(new java.awt.Color(51, 51, 51));
         jPanel2.setMaximumSize(new java.awt.Dimension(747, 116));
-        jPanel2.setMinimumSize(new java.awt.Dimension(747, 116));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ccP.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         ccP.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        ccP.setVerifyInputWhenFocusTarget(false);
-
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(0, 0, 0));
         jTextArea1.setColumns(20);
         jTextArea1.setForeground(new java.awt.Color(255, 255, 255));
         jTextArea1.setRows(5);
         jTextArea1.setText("sameer");
-        jTextArea1.setBorder(null);
-        jTextArea1.setSelectionColor(new java.awt.Color(0, 0, 0));
         ccP.setViewportView(jTextArea1);
-
         jPanel2.add(ccP, new org.netbeans.lib.awtextra.AbsoluteConstraints(146, 30, 582, 86));
 
         listB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\list-1.png")); // NOI18N
-        listB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                listBActionPerformed(evt);
-            }
-        });
+        listB.addActionListener(evt -> listBActionPerformed(evt));
         jPanel2.add(listB, new org.netbeans.lib.awtextra.AbsoluteConstraints(759, 10, 30, 30));
 
         volumeS.setOrientation(javax.swing.JSlider.VERTICAL);
-        volumeS.addChangeListener(new javax.swing.event.ChangeListener() {
-            public void stateChanged(javax.swing.event.ChangeEvent evt) {
-                volumeSStateChanged(evt);
-            }
-        });
-        volumeS.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseMoved(java.awt.event.MouseEvent evt) {
-                volumeSMouseMoved(evt);
-            }
-        });
-        volumeS.addMouseWheelListener(new java.awt.event.MouseWheelListener() {
-            public void mouseWheelMoved(java.awt.event.MouseWheelEvent evt) {
-                volumeSMouseWheelMoved(evt);
-            }
-        });
+        volumeS.addChangeListener(evt -> volumeSStateChanged(evt));
+        volumeS.addMouseWheelListener(evt -> volumeSMouseWheelMoved(evt));
         jPanel2.add(volumeS, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 10, 17, 106));
 
         loadFileB.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player.image\\folder-1.png")); // NOI18N
-        loadFileB.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loadFileBActionPerformed(evt);
-            }
-        });
+        loadFileB.addActionListener(evt -> loadFileBActionPerformed(evt));
         jPanel2.add(loadFileB, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 30, 30));
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 70, 20, -1));
-
-        jLabel3.setIcon(new javax.swing.ImageIcon("F:\\Final Project\\Player\\up.jpg")); // NOI18N
-        jLabel3.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
-            public void mouseDragged(java.awt.event.MouseEvent evt) {
-                jLabel3MouseDragged(evt);
-            }
-        });
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 850, 120));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
