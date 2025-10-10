@@ -35,6 +35,8 @@ public class Player {
     /** Default constructor */
     public Player() {
         // Constructor intentionally left blank
+        System.out.println("🎵 MP3 Player Initialized");
+    System.out.println("👨‍💻 Hacktoberfest 2025 contribution by Misbah Qureshi");
     }
 
     /**
