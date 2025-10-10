@@ -6,6 +6,8 @@
  * - Dynamic glowing button animation
  * - Floating particle background
  * - Sound feedback (different tone for leap vs. non-leap)
+ * - 🧹 Exit button with confirmation dialog
+ * - 🌗 Dark/Light mode toggle
  *
  * @version Hacktoberfest 2025
  */
@@ -18,19 +20,19 @@ import javax.sound.sampled.*;
 
 public class LeapYearCheckerFinal extends JFrame {
 
-    private JTextField yearInput; /** Input field for year entry */
-    private JLabel resultLabel; /** Label to display the result */
-    private JButton checkButton, clearButton; /** Buttons for check and clear */
-    private Timer glowTimer, particleTimer; /** Timers for glow and particle animations */
-    private float glowPhase = 0f; /** Controls color animation phase */
-    private java.util.List<Particle> particles = new java.util.ArrayList<>(); /** List of animated background particles */
-    private Random random = new Random(); /** Random number generator for particle positions */
-    private Color particleColor = new Color(0, 200, 255); // default cyan /** Color used for particles and UI glow */
+    private JTextField yearInput;
+    private JLabel resultLabel;
+    private JButton checkButton, clearButton;
+    private Timer glowTimer, particleTimer;
+    private float glowPhase = 0f;
+    private java.util.List<Particle> particles = new java.util.ArrayList<>();
+    private Random random = new Random();
+    private Color particleColor = new Color(0, 200, 255);
+    private boolean darkMode = true; // 🌗 New state variable for theme
 
-    /** Constructor sets up the window and animations */
     public LeapYearCheckerFinal() {
         setTitle("🌌 Leap Year Checker");
-        setSize(480, 300);
+        setSize(480, 400); // slightly taller
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -47,7 +49,6 @@ public class LeapYearCheckerFinal extends JFrame {
         GridBagConstraints gbc = new GridBagConstraints();
         gbc.insets = new Insets(10, 10, 10, 10);
 
-        // Title
         JLabel title = new JLabel("Leap Year Checker");
         title.setFont(new Font("Segoe UI", Font.BOLD, 22));
         title.setForeground(new Color(0, 200, 255));
@@ -56,7 +57,6 @@ public class LeapYearCheckerFinal extends JFrame {
         gbc.gridwidth = 2;
         panel.add(title, gbc);
 
-        // Input label
         gbc.gridy++;
         gbc.gridwidth = 1;
         JLabel label = new JLabel("Enter Year:");
@@ -64,7 +64,6 @@ public class LeapYearCheckerFinal extends JFrame {
         label.setForeground(new Color(230, 230, 230));
         panel.add(label, gbc);
 
-        // Input field
         yearInput = new JTextField(10);
         yearInput.setBackground(new Color(30, 30, 30));
         yearInput.setForeground(Color.WHITE);
@@ -102,16 +101,30 @@ public class LeapYearCheckerFinal extends JFrame {
         gbc.gridwidth = 2;
         panel.add(checkButton, gbc);
 
-        // "Clear" button (new addition)
+        // "Clear" button
         clearButton = new JButton("Clear");
         styleButton(clearButton, new Color(255, 180, 0));
         clearButton.addActionListener(e -> clearFields());
-
-        // Add the Clear button to the panel
         gbc.gridy++;
         panel.add(clearButton, gbc);
 
-        // Result
+        // "Exit" button (from PR #1)
+        JButton exitButton = new JButton("Exit");
+        styleButton(exitButton, new Color(255, 70, 70));
+        exitButton.addActionListener(e -> confirmExit());
+        gbc.gridy++;
+        panel.add(exitButton, gbc);
+
+        // 🌗 Dark/Light Mode toggle (new)
+        JCheckBox themeToggle = new JCheckBox("Dark Mode");
+        themeToggle.setSelected(true);
+        themeToggle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        themeToggle.setForeground(Color.WHITE);
+        themeToggle.setBackground(new Color(30, 30, 30));
+        themeToggle.addActionListener(e -> toggleTheme(themeToggle.isSelected()));
+        gbc.gridy++;
+        panel.add(themeToggle, gbc);
+
         resultLabel = new JLabel(" ");
         resultLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
         resultLabel.setForeground(Color.WHITE);
@@ -121,7 +134,33 @@ public class LeapYearCheckerFinal extends JFrame {
         add(panel);
     }
 
-    /** Applies consistent style to buttons */
+    /** Toggle between dark/light theme */
+    private void toggleTheme(boolean isDark) {
+        darkMode = isDark;
+        Color bg, text, fieldBg, fieldText;
+
+        if (isDark) {
+            bg = new Color(15, 15, 15);
+            text = Color.WHITE;
+            fieldBg = new Color(30, 30, 30);
+            fieldText = Color.WHITE;
+            particleColor = new Color(0, 200, 255);
+        } else {
+            bg = new Color(245, 245, 245);
+            text = Color.BLACK;
+            fieldBg = Color.WHITE;
+            fieldText = Color.BLACK;
+            particleColor = new Color(0, 120, 255);
+        }
+
+        getContentPane().setBackground(bg);
+        yearInput.setBackground(fieldBg);
+        yearInput.setForeground(fieldText);
+        resultLabel.setForeground(text);
+        repaint();
+    }
+
+    /** Button styling helper */
     private void styleButton(JButton button, Color baseColor) {
         button.setBackground(baseColor);
         button.setForeground(Color.BLACK);
@@ -130,7 +169,6 @@ public class LeapYearCheckerFinal extends JFrame {
         button.setCursor(new Cursor(Cursor.HAND_CURSOR));
         button.setBorder(BorderFactory.createEmptyBorder(8, 20, 8, 20));
 
-        // Hover effect
         button.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseEntered(MouseEvent e) {
@@ -144,7 +182,20 @@ public class LeapYearCheckerFinal extends JFrame {
         });
     }
 
-    /** Animate button glow */
+    /** Confirm before exiting the app */
+    private void confirmExit() {
+        int choice = JOptionPane.showConfirmDialog(
+            this,
+            "Are you sure you want to exit?",
+            "Confirm Exit",
+            JOptionPane.YES_NO_OPTION
+        );
+        if (choice == JOptionPane.YES_OPTION) {
+            System.exit(0);
+        }
+    }
+
+    /** Animate glow */
     private void initGlowAnimation() {
         glowTimer = new Timer(50, e -> {
             glowPhase += 0.1f;
@@ -156,7 +207,7 @@ public class LeapYearCheckerFinal extends JFrame {
         glowTimer.start();
     }
 
-    /** Initialize moving particles */
+    /** Initialize particles */
     private void initParticles() {
         for (int i = 0; i < 40; i++) {
             particles.add(new Particle(random.nextInt(480), random.nextInt(300)));
@@ -196,7 +247,7 @@ public class LeapYearCheckerFinal extends JFrame {
         } catch (Exception ignored) {}
     }
 
-    /** Check year and trigger visual/audio feedback */
+    /** Check leap year logic */
     private void checkLeapYear() {
         try {
             int year = Integer.parseInt(yearInput.getText().trim());
@@ -207,24 +258,24 @@ public class LeapYearCheckerFinal extends JFrame {
             if (isLeap) {
                 resultLabel.setText(year + " is a Leap Year ✅");
                 resultLabel.setForeground(new Color(0, 255, 128));
-                particleColor = new Color(0, 255, 128); // green glow
+                particleColor = new Color(0, 255, 128);
             } else {
                 resultLabel.setText(year + " is NOT a Leap Year ❌");
                 resultLabel.setForeground(new Color(255, 80, 80));
-                particleColor = new Color(255, 80, 80); // red glow
+                particleColor = new Color(255, 80, 80);
             }
         } catch (NumberFormatException ex) {
             resultLabel.setText("⚠️ Please enter a valid year!");
             resultLabel.setForeground(new Color(255, 200, 0));
-            particleColor = new Color(255, 200, 0); // yellow glow for error
+            particleColor = new Color(255, 200, 0);
         }
     }
 
-    /** Clears the input and result label — new feature */
+    /** Clears fields */
     private void clearFields() {
         yearInput.setText("");
         resultLabel.setText(" ");
-        particleColor = new Color(0, 200, 255); // reset to cyan
+        particleColor = new Color(0, 200, 255);
         repaint();
     }
 
@@ -240,13 +291,13 @@ public class LeapYearCheckerFinal extends JFrame {
         }
     }
 
-    /** Panel rendering animated background */
+    /** Panel with particles */
     private class ParticlePanel extends JPanel {
         @Override
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            g2.setColor(new Color(15, 15, 15));
+            g2.setColor(darkMode ? new Color(15, 15, 15) : new Color(245, 245, 245));
             g2.fillRect(0, 0, getWidth(), getHeight());
 
             for (Particle p : particles) {
