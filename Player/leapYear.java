@@ -8,6 +8,7 @@
  * - Sound feedback (different tone for leap vs. non-leap)
  * - 🧹 Exit button with confirmation dialog
  * - 🌗 Dark/Light mode toggle
+ * - 🧭 Menu bar with About and Exit options
  *
  * @version Hacktoberfest 2025
  */
@@ -28,18 +29,40 @@ public class LeapYearCheckerFinal extends JFrame {
     private java.util.List<Particle> particles = new java.util.ArrayList<>();
     private Random random = new Random();
     private Color particleColor = new Color(0, 200, 255);
-    private boolean darkMode = true; // 🌗 New state variable for theme
+    private boolean darkMode = true;
 
     public LeapYearCheckerFinal() {
         setTitle("🌌 Leap Year Checker");
-        setSize(480, 400); // slightly taller
+        setSize(480, 420);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
 
+        initMenuBar();   // 🧭 NEW — Adds menu bar
         initUI();
         initGlowAnimation();
         initParticles();
+    }
+
+    /** 🧭 Initialize the top menu bar */
+    private void initMenuBar() {
+        JMenuBar menuBar = new JMenuBar();
+
+        // File Menu
+        JMenu fileMenu = new JMenu("File");
+        JMenuItem exitItem = new JMenuItem("Exit");
+        exitItem.addActionListener(e -> confirmExit());
+        fileMenu.add(exitItem);
+
+        // Help Menu
+        JMenu helpMenu = new JMenu("Help");
+        JMenuItem aboutItem = new JMenuItem("About");
+        aboutItem.addActionListener(e -> showAboutDialog());
+        helpMenu.add(aboutItem);
+
+        menuBar.add(fileMenu);
+        menuBar.add(helpMenu);
+        setJMenuBar(menuBar);
     }
 
     /** Initialize UI components */
@@ -115,7 +138,7 @@ public class LeapYearCheckerFinal extends JFrame {
         gbc.gridy++;
         panel.add(exitButton, gbc);
 
-        // 🌗 Dark/Light Mode toggle (new)
+        // "Dark Mode" toggle (from PR #2)
         JCheckBox themeToggle = new JCheckBox("Dark Mode");
         themeToggle.setSelected(true);
         themeToggle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -134,7 +157,7 @@ public class LeapYearCheckerFinal extends JFrame {
         add(panel);
     }
 
-    /** Toggle between dark/light theme */
+    /** 🌗 Toggle between dark/light themes */
     private void toggleTheme(boolean isDark) {
         darkMode = isDark;
         Color bg, text, fieldBg, fieldText;
@@ -160,7 +183,17 @@ public class LeapYearCheckerFinal extends JFrame {
         repaint();
     }
 
-    /** Button styling helper */
+    /** 🧭 Show About dialog */
+    private void showAboutDialog() {
+        JOptionPane.showMessageDialog(
+            this,
+            "🌌 Leap Year Checker GUI\nHacktoberfest 2025 Edition\nCreated by <your-name>",
+            "About",
+            JOptionPane.INFORMATION_MESSAGE
+        );
+    }
+
+    /** Style helper for buttons */
     private void styleButton(JButton button, Color baseColor) {
         button.setBackground(baseColor);
         button.setForeground(Color.BLACK);
