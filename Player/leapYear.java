@@ -7,6 +7,7 @@
  * - Floating particle background
  * - Sound feedback (different tone for leap vs. non-leap)
  * - 🧹 Exit button with confirmation dialog
+ * - 🌗 Dark/Light mode toggle
  *
  * @version Hacktoberfest 2025
  */
@@ -27,10 +28,11 @@ public class LeapYearCheckerFinal extends JFrame {
     private java.util.List<Particle> particles = new java.util.ArrayList<>();
     private Random random = new Random();
     private Color particleColor = new Color(0, 200, 255);
+    private boolean darkMode = true; // 🌗 New state variable for theme
 
     public LeapYearCheckerFinal() {
         setTitle("🌌 Leap Year Checker");
-        setSize(480, 360); // slightly taller for new button
+        setSize(480, 400); // slightly taller
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setResizable(false);
@@ -106,12 +108,22 @@ public class LeapYearCheckerFinal extends JFrame {
         gbc.gridy++;
         panel.add(clearButton, gbc);
 
-        // 🧹 "Exit" button (new feature)
+        // "Exit" button (from PR #1)
         JButton exitButton = new JButton("Exit");
         styleButton(exitButton, new Color(255, 70, 70));
         exitButton.addActionListener(e -> confirmExit());
         gbc.gridy++;
         panel.add(exitButton, gbc);
+
+        // 🌗 Dark/Light Mode toggle (new)
+        JCheckBox themeToggle = new JCheckBox("Dark Mode");
+        themeToggle.setSelected(true);
+        themeToggle.setFont(new Font("Segoe UI", Font.PLAIN, 14));
+        themeToggle.setForeground(Color.WHITE);
+        themeToggle.setBackground(new Color(30, 30, 30));
+        themeToggle.addActionListener(e -> toggleTheme(themeToggle.isSelected()));
+        gbc.gridy++;
+        panel.add(themeToggle, gbc);
 
         resultLabel = new JLabel(" ");
         resultLabel.setFont(new Font("Segoe UI", Font.BOLD, 16));
@@ -120,6 +132,32 @@ public class LeapYearCheckerFinal extends JFrame {
         panel.add(resultLabel, gbc);
 
         add(panel);
+    }
+
+    /** Toggle between dark/light theme */
+    private void toggleTheme(boolean isDark) {
+        darkMode = isDark;
+        Color bg, text, fieldBg, fieldText;
+
+        if (isDark) {
+            bg = new Color(15, 15, 15);
+            text = Color.WHITE;
+            fieldBg = new Color(30, 30, 30);
+            fieldText = Color.WHITE;
+            particleColor = new Color(0, 200, 255);
+        } else {
+            bg = new Color(245, 245, 245);
+            text = Color.BLACK;
+            fieldBg = Color.WHITE;
+            fieldText = Color.BLACK;
+            particleColor = new Color(0, 120, 255);
+        }
+
+        getContentPane().setBackground(bg);
+        yearInput.setBackground(fieldBg);
+        yearInput.setForeground(fieldText);
+        resultLabel.setForeground(text);
+        repaint();
     }
 
     /** Button styling helper */
@@ -259,7 +297,7 @@ public class LeapYearCheckerFinal extends JFrame {
         protected void paintComponent(Graphics g) {
             super.paintComponent(g);
             Graphics2D g2 = (Graphics2D) g;
-            g2.setColor(new Color(15, 15, 15));
+            g2.setColor(darkMode ? new Color(15, 15, 15) : new Color(245, 245, 245));
             g2.fillRect(0, 0, getWidth(), getHeight());
 
             for (Particle p : particles) {
