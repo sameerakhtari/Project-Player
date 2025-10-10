@@ -1,3 +1,15 @@
+/**
+ * 🌌 Leap Year Checker GUI Application
+ * -------------------------------------
+ * This Java Swing application allows users to enter a year and check
+ * whether it's a leap year or not. It features:
+ * - Dynamic glowing button animation
+ * - Floating particle background
+ * - Sound feedback (different tone for leap vs. non-leap)
+ *
+ * @version Hacktoberfest 2025
+ */
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
@@ -6,15 +18,17 @@ import javax.sound.sampled.*;
 
 public class LeapYearCheckerFinal extends JFrame {
 
-    private JTextField yearInput;
-    private JLabel resultLabel;
-    private JButton checkButton;
-    private Timer glowTimer, particleTimer;
-    private float glowPhase = 0f;
-    private java.util.List<Particle> particles = new java.util.ArrayList<>();
-    private Random random = new Random();
-    private Color particleColor = new Color(0, 200, 255); // default cyan
+    
+    private JTextField yearInput; /** Input field for year entry */
+    private JLabel resultLabel; /** Label to display the result */
+    private JButton checkButton; /** Button to trigger leap year check */
+    private Timer glowTimer, particleTimer; /** Timers for glow and particle animations */
+    private float glowPhase = 0f; /** Controls color animation phase */
+    private java.util.List<Particle> particles = new java.util.ArrayList<>(); /** List of animated background particles */
+    private Random random = new Random(); /** Random number generator for particle positions */
+    private Color particleColor = new Color(0, 200, 255); // default cyan /** Color used for particles and UI glow */
 
+    /** Constructor sets up the window and animations */
     public LeapYearCheckerFinal() {
         setTitle("🌌 Leap Year Checker");
         setSize(480, 300);
@@ -152,6 +166,7 @@ public class LeapYearCheckerFinal extends JFrame {
     }
 
     /** Check year and trigger visual/audio feedback */
+    /** Checks the input year and updates the UI with result */
     private void checkLeapYear() {
         try {
             int year = Integer.parseInt(yearInput.getText().trim());
