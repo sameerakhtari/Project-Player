@@ -4,6 +4,8 @@
  * and open the template in the editor.
  */
 
+/* File updated by Hamza Sherazi */
+
 /**
  * 🎵 Player.java
  * -------------------------------------
@@ -14,6 +16,8 @@
  *
  * @author Sameer Akhtari
  */
+
+/* One more comment line */
 
 import java.io.*;
 import java.util.*;

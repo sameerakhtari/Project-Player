@@ -9,7 +9,8 @@
  * @author Sameer Akhtari
  */
  
- 
+ /* start of the code */
+
  // Main Class
 public class PlayerMian {
 
@@ -27,3 +28,4 @@ public class PlayerMian {
 }
 //end of the class playerMian.java
 //this should be updated to PlayerMain.java instead. 
+
