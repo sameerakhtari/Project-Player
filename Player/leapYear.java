@@ -1,3 +1,5 @@
+/* start of the file */
+
 /**
  * 🌌 Leap Year Checker GUI Application
  * -------------------------------------
@@ -15,7 +17,6 @@
 
 /* Comment added by Sherazi Bhai */
 
-/* start of the code */
 
 import javax.swing.*;
 import java.awt.*;
