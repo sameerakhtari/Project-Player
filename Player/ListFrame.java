@@ -1,6 +1,6 @@
-/* start of the file */
 
 
+/* imports */
 import javax.swing.DefaultListModel;
 import javax.swing.*;
 import java.*;
